@@ -1,5 +1,9 @@
 import sys
 
+if(sys.argv[1]=='-h' or sys.argv[1]=='--help'):
+    print('For Civilization Battle Royal Mk.II community at reddit/r/civbattleroyale - Flair up!\nThis python script takes in a plain text file as the only argument.\nIt adds civilization names in brackets to leader names (from the civBR_civ_leader.tsv).\nOutputs a new text-file with a suffix: "_with_civs".\nMade by vincentrose88')
+    exit(0)
+
 inputted_file = str(sys.argv[1])
 inputted = open(inputted_file,'r').readlines()
 
@@ -51,7 +55,6 @@ for line in inputted:
     startWordNr = 0
     wordNr = 0
     while wordNr < len(splittedLine):
-#    for wordNr in range(0,len(splittedLine)):
         word=splittedLine[wordNr]
         if(word[len(word)-1]=='.' or word[len(word)-1]==','):
             cleanword = word[:-1]
@@ -61,8 +64,6 @@ for line in inputted:
             punct = ''
 
         word = cleanword
-#        print(word)
- #       print(wordNr)
         w=0
         leader = []
         if(word in allNames and word !='I'):
@@ -86,6 +87,4 @@ for line in inputted:
     newLine = newLine + ' '.join(splittedLine[startWordNr:])
 
     updatedFile.write(newLine)
-
-
 
