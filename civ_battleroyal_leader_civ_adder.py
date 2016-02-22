@@ -28,7 +28,6 @@ def find_best_leader_match(input_lines):
     and more leaders share some of their name (Khan as an example)."""
     best_match = 0
     matched_key = None
-    output = ''
     for leader in civ_leader.keys():
         matches = 0
         for split_name in leader.split():
@@ -43,9 +42,7 @@ def find_best_leader_match(input_lines):
             matched_key = None
 
     if(matched_key is not None):
-        output= civ_leader[matched_key]
-
-    return(output)
+        return civ_leader[matched_key]
 
 
 #Reads in all leader names in the leader_civ dic to filter narrator text
@@ -78,7 +75,7 @@ for line in input_lines:
 
             civ = find_best_leader_match(leader)
 
-            if(civ!=''):
+            if civ is not False:
                 new_line.extend(
                     (' '.join(split_line[start_word_number:word_number]),
                      ' {} ({}){} '.format(' '.join(leader), civ, punct)))
