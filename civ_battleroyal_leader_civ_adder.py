@@ -9,11 +9,9 @@ inputted = open(inputted_file,'r').readlines()
 
 #Reads in a file with civs mapped to leaders and add it to a dic
 civ_leader_file = open('civBR_civ_leader.tsv','r')
-civ_leader = {}
-for line in civ_leader_file:
-    i = line.split('\t')
-    civ_leader[i[1].strip('\n')]=i[0]
-
+civ_leader = {leader.strip('\n'): country
+              for line in civ_leader_file
+              for (country, leader) in [line.split('\t')]}
 
 def find_best_leader_match(inputted):
     "Finds the best matched leader name for inputted list of words (containing at least one leadername) (useful when narrator use shortned leader names and more leaders share some of their name (Khan as an example)"
@@ -41,11 +39,7 @@ def find_best_leader_match(inputted):
 
 
 #Reads in all leader names in the leader_civ dic to filter narrator text
-allNames = []
-for keys in civ_leader.keys():
-    splittedKeys = keys.split()
-    for k in splittedKeys:
-        allNames.append(k)
+allNames = [k for keys in civ_leader for k in keys.split()]
 
 updatedFile = open(inputted_file + '_with_civs','w')
 #Reads in a text file from narrators and searches for leadernames and adds civ in brackets
