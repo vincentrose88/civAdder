@@ -48,7 +48,7 @@ def find_best_leader_match(input_lines):
 #Reads in all leader names in the leader_civ dic to filter narrator text
 all_names = [k for keys in civ_leader for k in keys.split()]
 
-updated_file = open(input_file + '_with_civs','w')
+updated_file = open(input_file + '_with_civs', 'w')
 #Reads in a text file from narrators and searches for leadernames and adds civ in brackets
 for line in input_lines:
     new_line = []
@@ -57,21 +57,18 @@ for line in input_lines:
     word_number = 0
     while word_number < len(split_line):
         word=split_line[word_number]
-        if(word[len(word)-1] in '.,:;?!+-='):
-            cleanword = word[:-1]
-            punct = word[len(word)-1]
+        if(word[-1] in '.,:;?!+-='):
+            punct = word[-1]
+            word = word[:-1]
         else:
-            cleanword = word
             punct = ''
-
-        word = cleanword
-        w=0
+        w = 0
         leader = []
-        if(word in all_names and word !='I'):
+        if(word in all_names and word != 'I'):
             while(word in all_names):
                 leader.append(word)
-                w +=1
-                word = split_line[word_number+w]
+                w += 1
+                word = split_line[word_number + w]
 
             civ = find_best_leader_match(leader)
 
