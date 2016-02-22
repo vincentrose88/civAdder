@@ -11,8 +11,8 @@ if(sys.argv[1]=='-h' or sys.argv[1]=='--help'):
         'Made by vincentrose88')
     exit(0)
 
-inputted_file = str(sys.argv[1])
-inputted = open(inputted_file,'r').readlines()
+input_file = str(sys.argv[1])
+input_lines = open(input_file,'r').readlines()
 
 #Reads in a file with civs mapped to leaders and add it to a dic
 civ_leader_file = open('civBR_civ_leader.tsv','r')
@@ -20,7 +20,7 @@ civ_leader = {leader.strip('\n'): country
               for line in civ_leader_file
               for (country, leader) in [line.split('\t')]}
 
-def find_best_leader_match(inputted):
+def find_best_leader_match(input_lines):
     """Return best leader according to input.
 
     Finds the best matched leader name for inputted list of words (containing
@@ -32,7 +32,7 @@ def find_best_leader_match(inputted):
     for leader in civ_leader.keys():
         matches = 0
         for split_name in leader.split():
-            for split_input in inputted:
+            for split_input in input_lines:
                 if(split_input == split_name):
                     matches+=1
 
@@ -49,17 +49,17 @@ def find_best_leader_match(inputted):
 
 
 #Reads in all leader names in the leader_civ dic to filter narrator text
-allNames = [k for keys in civ_leader for k in keys.split()]
+all_names = [k for keys in civ_leader for k in keys.split()]
 
-updatedFile = open(inputted_file + '_with_civs','w')
+updated_file = open(input_file + '_with_civs','w')
 #Reads in a text file from narrators and searches for leadernames and adds civ in brackets
-for line in inputted:
-    newLine = ''
-    splittedLine = line.split(' ')
-    startWordNr = 0
-    wordNr = 0
-    while wordNr < len(splittedLine):
-        word=splittedLine[wordNr]
+for line in input_lines:
+    new_line = ''
+    split_line = line.split(' ')
+    start_word_number = 0
+    word_number = 0
+    while word_number < len(split_line):
+        word=split_line[word_number]
         if(word[len(word)-1]=='.' or word[len(word)-1]==','):
             cleanword = word[:-1]
             punct = word[len(word)-1]
@@ -70,25 +70,25 @@ for line in inputted:
         word = cleanword
         w=0
         leader = []
-        if(word in allNames and word !='I'):
-            while(word in allNames):
+        if(word in all_names and word !='I'):
+            while(word in all_names):
                 leader.append(word)
                 w +=1
-                word = splittedLine[wordNr+w]
+                word = split_line[word_number+w]
 
             civ = find_best_leader_match(leader)
 
             if(civ!=''):
-                updatedInfo = ' '+' '.join(leader)+' ('+civ+')' + punct + ' '
-                newLine = newLine + ' '.join(splittedLine[startWordNr:wordNr]) + updatedInfo
-                startWordNr = wordNr + len(leader)
-                wordNr = wordNr + len(leader)
+                updated_info = ' '+' '.join(leader)+' ('+civ+')' + punct + ' '
+                new_line = new_line + ' '.join(split_line[start_word_number:word_number]) + updated_info
+                start_word_number = word_number + len(leader)
+                word_number = word_number + len(leader)
             else:
-                wordNr += 1
+                word_number += 1
         else:
-            wordNr += 1
+            word_number += 1
 
-    newLine = newLine + ' '.join(splittedLine[startWordNr:])
+    new_line = new_line + ' '.join(split_line[start_word_number:])
 
-    updatedFile.write(newLine)
+    updated_file.write(new_line)
 
