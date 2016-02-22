@@ -21,7 +21,11 @@ civ_leader = {leader.strip('\n'): country
               for (country, leader) in [line.split('\t')]}
 
 def find_best_leader_match(inputted):
-    "Finds the best matched leader name for inputted list of words (containing at least one leadername) (useful when narrator use shortned leader names and more leaders share some of their name (Khan as an example)"
+    """Return best leader according to input.
+
+    Finds the best matched leader name for inputted list of words (containing
+    at least one leadername) (useful when narrator use shortned leader names
+    and more leaders share some of their name (Khan as an example)."""
     best_match = 0
     matched_key = 'Not found'
     output = ''
