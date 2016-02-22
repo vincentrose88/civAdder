@@ -1,7 +1,14 @@
 import sys
 
 if(sys.argv[1]=='-h' or sys.argv[1]=='--help'):
-    print('For Civilization Battle Royal Mk.II community at reddit/r/civbattleroyale - Flair up!\nThis python script takes in a plain text file as the only argument.\nIt adds civilization names in brackets to leader names (from the civBR_civ_leader.tsv).\nOutputs a new text-file with a suffix: "_with_civs".\nMade by vincentrose88')
+    print(
+        'For Civilization Battle Royal Mk.II community at '
+        'reddit/r/civbattleroyale - Flair up!\n'
+        'This python script takes in a plain text file as the only argument.\n'
+        'It adds civilization names in brackets to leader names (from the '
+        'civBR_civ_leader.tsv).\n'
+        'Outputs a new text-file with a suffix: "_with_civs".\n'
+        'Made by vincentrose88')
     exit(0)
 
 inputted_file = str(sys.argv[1])
