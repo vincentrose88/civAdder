@@ -29,16 +29,15 @@ def find_best_leader_match(inputted):
     best_match = 0
     matched_key = None
     output = ''
-    for i in civ_leader.keys():
-        j=i.split()
+    for leader in civ_leader.keys():
         matches = 0
-        for n in j:
-            for m in inputted:
-                if(m==n):
+        for split_name in leader.split():
+            for split_input in inputted:
+                if(split_input == split_name):
                     matches+=1
 
         if(matches>best_match):
-            matched_key = i
+            matched_key = leader
             best_match = matches
         elif(matches==best_match and matches!=0):
             matched_key = None
