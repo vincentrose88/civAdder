@@ -27,7 +27,7 @@ def find_best_leader_match(inputted):
     at least one leadername) (useful when narrator use shortned leader names
     and more leaders share some of their name (Khan as an example)."""
     best_match = 0
-    matched_key = 'Not found'
+    matched_key = None
     output = ''
     for i in civ_leader.keys():
         j=i.split()
@@ -41,9 +41,9 @@ def find_best_leader_match(inputted):
             matched_key = i
             best_match = matches
         elif(matches==best_match and matches!=0):
-            matched_key = 'Not found'
+            matched_key = None
             
-    if(matched_key!='Not found'):
+    if(matched_key is not None):
         output= civ_leader[matched_key]
 
     return(output)
