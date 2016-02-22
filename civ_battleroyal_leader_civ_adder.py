@@ -78,19 +78,28 @@ def insert_civ_names(input_lines, all_names):
         out.append(''.join(new_line))
     return(''.join(out))
 
-if __name__ == '__main__':
-    if(sys.argv[1]=='-h' or sys.argv[1]=='--help'):
-        print(
-            'For Civilization Battle Royal Mk.II community at '
-            'reddit/r/civbattleroyale - Flair up!\n'
-            'This python script takes in a plain text file as the only argument.\n'
-            'It adds civilization names in brackets to leader names (from the '
-            'civBR_civ_leader.tsv).\n'
-            'Outputs a new text-file with a suffix: "_with_civs".\n'
-            'Made by vincentrose88')
-        exit(0)
+def print_help():
+    print (
+    'For Civilization Battle Royal Mk.II community at '
+    'reddit/r/civbattleroyale - Flair up!\n'
+    'This python script takes in a plain text file as the only argument.\n'
+    'It adds civilization names in brackets to leader names (from the '
+    'civBR_civ_leader.tsv).\n'
+    'Outputs a new text-file with a suffix: "_with_civs".\n'
+    'Made by vincentrose88')
 
-    input_file = str(sys.argv[1])
+if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        print_help()
+        exit(0)
+    elif(sys.argv[1] in ('-h', '--help', None)):
+        print_help()
+        exit(0)
+    elif(sys.argv[1]=='-t' or sys.argv[1]=='--test'):
+        input_file = 'data/test_data.txt'
+    else:
+        input_file = str(sys.argv[1])
+
     input_lines = open(input_file,'r').readlines()
 
     civ_leader_file = open('civBR_civ_leader.tsv','r')
