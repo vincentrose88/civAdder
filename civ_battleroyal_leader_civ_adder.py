@@ -41,7 +41,7 @@ def find_best_leader_match(input_lines):
             best_match = matches
         elif(matches==best_match and matches!=0):
             matched_key = None
-            
+
     if(matched_key is not None):
         output= civ_leader[matched_key]
 
@@ -60,7 +60,7 @@ for line in input_lines:
     word_number = 0
     while word_number < len(split_line):
         word=split_line[word_number]
-        if(word[len(word)-1]=='.' or word[len(word)-1]==','):
+        if(word[len(word)-1] in '.,:;?!+-='):
             cleanword = word[:-1]
             punct = word[len(word)-1]
         else:
@@ -79,7 +79,8 @@ for line in input_lines:
             civ = find_best_leader_match(leader)
 
             if(civ!=''):
-                updated_info = ' '+' '.join(leader)+' ('+civ+')' + punct + ' '
+                updated_info = ' {} ({}){} '.format(
+                    ' '.join(leader), civ, punct)
                 new_line = new_line + ' '.join(split_line[start_word_number:word_number]) + updated_info
                 start_word_number = word_number + len(leader)
                 word_number = word_number + len(leader)
