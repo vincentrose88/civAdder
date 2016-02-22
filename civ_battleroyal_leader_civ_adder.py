@@ -54,7 +54,7 @@ all_names = [k for keys in civ_leader for k in keys.split()]
 updated_file = open(input_file + '_with_civs','w')
 #Reads in a text file from narrators and searches for leadernames and adds civ in brackets
 for line in input_lines:
-    new_line = ''
+    new_line = []
     split_line = line.split(' ')
     start_word_number = 0
     word_number = 0
@@ -79,9 +79,9 @@ for line in input_lines:
             civ = find_best_leader_match(leader)
 
             if(civ!=''):
-                updated_info = ' {} ({}){} '.format(
-                    ' '.join(leader), civ, punct)
-                new_line = new_line + ' '.join(split_line[start_word_number:word_number]) + updated_info
+                new_line.extend(
+                    (' '.join(split_line[start_word_number:word_number]),
+                     ' {} ({}){} '.format(' '.join(leader), civ, punct)))
                 start_word_number = word_number + len(leader)
                 word_number = word_number + len(leader)
             else:
@@ -89,7 +89,6 @@ for line in input_lines:
         else:
             word_number += 1
 
-    new_line = new_line + ' '.join(split_line[start_word_number:])
-
-    updated_file.write(new_line)
+    new_line.append(' '.join(split_line[start_word_number:]))
+    updated_file.write(''.join(new_line))
 
